@@ -82,7 +82,7 @@ else if($process_command == "CreateNewProject"){
 
 		$statement->execute();
 	$_SESSION['a'] = $ProjectId;
-	header("Location: index.php");
+	header("Location: ManagerIndex.php");
 }
 else if($command == "logout")
 {

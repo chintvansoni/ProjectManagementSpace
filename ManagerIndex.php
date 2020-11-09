@@ -55,7 +55,7 @@
 					<br>
 				</li>
 				<li>
-					<a href="#ViewProjects.php">Manage Projects</a>
+					<a href="ViewProjects.php">Manage Projects</a>
 				</li>
 				<li>
 					<br>
