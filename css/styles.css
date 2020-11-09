@@ -1,0 +1,144 @@
+body {
+	position: relative;
+	margin: auto;
+}
+
+header {
+	position: relative;
+	display: flex;
+	margin: 0px auto;
+	width: 800px;
+	height: 100px;
+	background-color: #b8b8b8;
+	box-shadow: 5px 5px 3px;
+}
+
+	header #headerSiteName {
+		margin-top: 15px;
+		font-size: 45px;
+	}
+
+footer {
+	font-family: 'Slabo 27px', serif;
+	width: 800px;
+	background-color: rgb(84, 84, 82);
+	color: white;
+	margin: 10px auto;
+}
+
+	footer div {
+		text-align: center;
+	}
+
+section {
+	position: relative;
+	width: 800px;
+	margin: 10px auto;
+}
+
+#UserLoginForm{
+	position: relative;
+	text-align: center;
+}
+
+#error_message{
+	color: red;
+}
+
+#adminlogin{
+	text-align: right;
+}
+	
+	#adminlogin a{
+		color: white;
+	}
+
+	#adminlogin a:hover{
+		color: blue;
+		transition: .3s;
+	}
+
+div#managerIndex{
+	width: 250px;
+	position: relative;
+	margin: 10px auto;
+}
+
+	div#managerIndex ul#managerOperations{
+		list-style: none;
+	}
+
+		div#managerIndex ul#managerOperations li{
+
+		}
+
+nav {
+	width: 800px;
+	height: 65px;
+	background-color: rgb(217, 217, 217);
+	border: 2px solid black;
+	color: white;
+	margin: 10px auto;
+}
+
+	nav ul{
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		justify-content: space-around;
+	}
+
+		nav ul li{
+			padding: 10px;
+
+		}
+
+			nav ul li a{
+				color: black;
+				text-decoration: none;
+			}
+
+label#loggedinuser {
+	color: black;
+}
+
+section#CreateNewProject{
+	text-align: center;
+}
+
+form#newProjectForm {
+		margin: 0px auto 20px;
+		width: 600px;
+	}
+
+	#ProjectInfo ul {
+		list-style: none;
+	}
+
+		#ProjectInfo ul li{
+			padding: 10px;
+			text-align: left;
+		}
+
+			#ProjectInfo ul li label{
+				width: 100px;
+				display: inline-block;
+			}
+
+			#ProjectInfo ul li input, #ProjectInfo ul li textarea{
+				width: 175px;
+				display: inline;
+			}
+
+			#ProjectInfo ul li textarea {
+				resize: none;
+			}
+
+.error {
+	color: red;
+}
+
+.errorMessage {
+	padding: 20px;
+	width: 200px;
+}
