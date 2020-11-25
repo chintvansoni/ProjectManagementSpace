@@ -5,15 +5,23 @@
 
 	$userId = $_SESSION['UserId'];
 
-	$query = 'SELECT *
+	$projectQuery = 'SELECT *
 				FROM projects
-				WHERE Owner = {$userId}
+				WHERE Owner = '.$userId.'
 				ORDER BY CreatedOn DESC';
 
-	$statement = $db->prepare($query);
+	$userQuery = 'SELECT *
+				FROM users
+				WHERE UserId = '.$userId;
+
+	$statement = $db->prepare($projectQuery);
 	$statement->execute();
 
+	$userStatement = $db->prepare($userQuery);
+	$userStatement->execute();
+
 	$projectList = $statement->fetchAll();
+	$userDetails = $userStatement->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -44,13 +52,29 @@
 	</nav>
 
 	<section>
-		<?php if(count($projectList) >= 1): ?>
-			<?php foreach($projectList as $project): ?>
-				<div>
-					
-				</div>
-			<?php endforeach; ?>
-		<?php endif; ?>
+		<div id="AllProjects">
+			<?php if(count($projectList) >= 1): ?>
+				<?php foreach($projectList as $project): ?>
+					<div class="ProjectItem">
+						<h3>
+			          		<a href="ManagerProjectDetail.php?id=<?= $project['ProjectId'] ?>"><?= $project['ProjectName'] ?></a>
+				        </h3>
+				        <p>
+			          		<small>
+				            	Created On: <?= date('F j, Y, g:i a', strtotime($project['CreatedOn'])) ?>
+			         	 	</small>
+			         	 	<small id="ProjectDetailLink">
+			         	 		<a href="ManagerProjectDetail.php?id=<?= $project['ProjectId'] ?>">view project</a>
+			         	 	</small>
+			         	 	<br>
+			         	 	<small>
+				        			Owner: <?= $userDetails['FirstName'].' '.$userDetails['LastName'] ?>
+				        	</small>
+				        </p>
+					</div>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
 	</section>
 
 	<footer>
