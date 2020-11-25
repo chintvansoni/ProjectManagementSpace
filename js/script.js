@@ -17,33 +17,18 @@ function hideErrors()
 	}
 }
 
-function validate(e)
+function validateForm(inputList)
 {
-	hideErrors();
-
-	if(formHasErrors())
-	{
-		e.preventDefault();
-
-		return false;
-	}
-
-	return true;
-}
-
-function formHasErrors()
-{	
 	let errorFlag = false;
-	let requiredFieldsList = ["ProjectName","ProjectDescription"];
 
-	for(let i=0 ; i<requiredFieldsList.length ; i++)
+	for(let i=0 ; i<inputList.length ; i++)
 	{		
 
-		let requiredTextField = document.getElementById(requiredFieldsList[i]);
+		let requiredTextField = document.getElementById(inputList[i]);
 
 		if(!formFieldHasInput(requiredTextField))
 		{
-			errorFlag = raiseAndSetFocusToError(requiredTextField, requiredFieldsList[i] + "_error", errorFlag);
+			errorFlag = raiseAndSetFocusToError(requiredTextField, inputList[i] + "_error", errorFlag);
 		}
 	}
 
@@ -62,10 +47,7 @@ function formFieldHasInput(element)
 
 function raiseAndSetFocusToError(formElement, elementId, errorFlag)
 {
-	if(window.innerWidth < 740)
-		document.getElementById(elementId).setAttribute("style", "display:block");
-	else
-		document.getElementById(elementId).setAttribute("style", "display:inline");
+	document.getElementById(elementId).setAttribute("style", "display:inline");
 	
 	if(!errorFlag){
 		formElement.focus();
@@ -73,13 +55,3 @@ function raiseAndSetFocusToError(formElement, elementId, errorFlag)
 	}
 	return true;
 }
-
-function load()
-{
-	hideErrors();
-
-	let submitButton = document.getElementById('createProject');
-	submitButton.addEventListener("click", validate);
-}
-
-document.addEventListener("DOMContentLoaded", load);

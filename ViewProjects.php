@@ -3,12 +3,34 @@
 
 	session_start();
 
+	if(!isset($_SESSION['UserName']))
+	{
+		header('location:login.php');
+	}
+	else if($_SESSION['UserRole'] == 'Employee')
+	{
+		header('location:EmployeeIndex.php');
+	}
+	else if($_SESSION['UserRole'] == 'Admin')
+	{
+		header('location:AdminIndex.php');
+	}
+
+	if(!isset($_GET['sort']) || strlen($_GET['sort']) == 0 || $_GET['sort'] == 'createdon'){
+		$orderBy = 'CreatedOn DESC';
+	}
+	else if($_GET['sort'] == 'projectname'){
+		$orderBy = 'ProjectName ASC';
+	}else{
+		header("location:ViewProjects.php");
+	}
+
 	$userId = $_SESSION['UserId'];
 
 	$projectQuery = 'SELECT *
 				FROM projects
 				WHERE Owner = '.$userId.'
-				ORDER BY CreatedOn DESC';
+				ORDER BY '.$orderBy;
 
 	$userQuery = 'SELECT *
 				FROM users
@@ -16,12 +38,11 @@
 
 	$statement = $db->prepare($projectQuery);
 	$statement->execute();
-
-	$userStatement = $db->prepare($userQuery);
-	$userStatement->execute();
-
 	$projectList = $statement->fetchAll();
-	$userDetails = $userStatement->fetch();
+
+	$statement = $db->prepare($userQuery);
+	$statement->execute();
+	$userDetails = $statement->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +50,7 @@
 <head>
 	<title>Project Management Space</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script src="js/sortingScript.js"></script>
 </head>
 <body>
 
@@ -53,18 +75,34 @@
 
 	<section>
 		<div id="AllProjects">
+			<div id="SearchSortOperations">
+				<span id="SearchUtility">
+					<input type="text" name="SearchProjectName" id="SearchProjectName">
+					<input type="button" name="SearchProject" id="SearchProject" value="Search">
+				</span>
+				<span id="SortUtility">
+					Sort by: 
+					<select id="sortProjectList" name="sortProjectList">
+						<option value="createdon" selected>Created On ASC</option>
+						<option value="projectname">Project Name</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<br>
+		<div id="AllProjects">
 			<?php if(count($projectList) >= 1): ?>
 				<?php foreach($projectList as $project): ?>
 					<div class="ProjectItem">
 						<h3>
-			          		<a href="ManagerProjectDetail.php?id=<?= $project['ProjectId'] ?>"><?= $project['ProjectName'] ?></a>
+			          		<a href="ViewProjectDetail.php?id=<?= $project['ProjectId'] ?>"><?= $project['ProjectName'] ?></a>
 				        </h3>
 				        <p>
 			          		<small>
 				            	Created On: <?= date('F j, Y, g:i a', strtotime($project['CreatedOn'])) ?>
 			         	 	</small>
 			         	 	<small id="ProjectDetailLink">
-			         	 		<a href="ManagerProjectDetail.php?id=<?= $project['ProjectId'] ?>">view project</a>
+			         	 		<a href="ViewProjectDetail.php?id=<?= $project['ProjectId'] ?>">view project</a>
 			         	 	</small>
 			         	 	<br>
 			         	 	<small>

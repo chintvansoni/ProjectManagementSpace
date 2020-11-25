@@ -19,6 +19,7 @@
 <head>
 	<title>Project Management Space</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script src="js/addProjectScript.js"></script>
 	<script src="js/script.js"></script>
 </head>
 <body>
@@ -47,7 +48,7 @@
 			<h1>Create a New Project</h1>
 		</div>
 
-		<form id="newProjectForm" action="post_process.php" method="POST">
+		<form id="newProjectForm" action="post_process.php" method="POST" enctype="multipart/form-data">
 			<fieldset id="ProjectInfo">
 				<ul>
 					<li>

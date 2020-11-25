@@ -43,36 +43,14 @@
 	</nav>
 
 	<section id="managerIndexSection">
-		<div id="managerIndex">
-			<ul id="managerOperations">
-				<li>
-					<h3>Manage Projects</h3>
-				</li>
-				<li>
-					<a href="CreateNewProject.php">Add a New Project</a>
-				</li>
-				<li>
+		<div id="DeleteErrorMessage">
+			<div id="AllProjects">
+				<h2>
+					A problem occured while deleting the project.
 					<br>
-				</li>
-				<li>
-					<a href="ViewProjects.php">Manage Projects</a>
-				</li>
-				<li>
-					<br>
-				</li>
-				<li>
-					<a href="AssignEmployees.php">Assign Employees to Project</a>
-				</li>
-				<li>
-					<br>
-				</li>
-				<li>
-					<h3>User Settings</h3>
-				</li>
-				<li>
-					<a href="#ResetPassword.php">Change Password</a>
-				</li>
-			</ul>
+					Please try again!!!
+				</h2>
+			</div>
 		</div>
 	</section>
 

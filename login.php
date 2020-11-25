@@ -42,7 +42,7 @@ if(!isset($_SESSION['login_error']))
 
 			<?php if($_SESSION['login_error']): ?>
 				<p>
-					<label id="error_message">
+					<label class="errorMessage error">
 						Invalid username or password. Please try again!!!
 					</label>
 				</p>
