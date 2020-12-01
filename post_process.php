@@ -9,7 +9,40 @@ session_start();
 
 $process_command = $_POST['command'];
 
-if($process_command == 'Log In'){
+
+if($process_command == 'registerUser'){
+	$post_firstname = filter_input(INPUT_POST, 'PMSUserFirstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	$post_lastname = filter_input(INPUT_POST, 'PMSUserLastName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	$post_username = filter_input(INPUT_POST, 'PMSUserName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	$post_password = filter_input(INPUT_POST,'PMSPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	$post_usertype = $_POST['PMSUserRole'];
+	
+	$password = password_hash($post_password, PASSWORD_DEFAULT);
+
+	$query = 'INSERT INTO users(FirstName, LastName, UserName, Password, UserType, Status)
+			VALUES(:firstname, :lastname, :username, :password, :usertype, :status)';
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':firstname',$post_firstname);
+	$statement->bindValue(':lastname',$post_lastname);
+	$statement->bindValue(':username',$post_username);
+	$statement->bindValue(':password',$password);
+	$statement->bindValue(':usertype',$post_usertype);
+	$statement->bindValue(':status', 1);
+	$statement->execute();
+
+	$result = $db->lastInsertId();
+
+	if($result == 0){
+		$_SESSION['register_error'] = true;
+		header('location:NewRegistration.php');
+	}
+	else{
+		$_SESSION['register_error'] = false;
+		header("Location:AdminIndex.php");
+	}
+}
+else if($process_command == 'Log In'){
 
 	if(!isset($_POST['PMS_Login_Username']) || !isset($_POST['PMS_Login_password']) ||
 		strlen($_POST['PMS_Login_Username']) == 0 || strlen($_POST['PMS_Login_password']) == 0 )
@@ -119,22 +152,37 @@ else if($process_command == "EditProject"){
 
 	$ERDiagramImage = upload_to_server($post_projectname);
 
-	if(!is_null($ERDiagramImage))
-	{
-		$ERDiagramImage = substr($ERDiagramImage, strpos($ERDiagramImage, "uploads"));
-	}
-
-	$query = 'UPDATE projects 
+	if(!is_null($ERDiagramImage) || isset($_POST['RemoveERDiagram']))
+	{	
+		if(!is_null($ERDiagramImage)){
+			$ERDiagramImage = substr($ERDiagramImage, strpos($ERDiagramImage, "uploads"));	
+		}
+		
+		$query = 'UPDATE projects 
 				SET ProjectName = :projectname, 
 					Description = :description,
 					ERDiagram = :erdiagram
 				WHERE projectID = :projectID';
+	}
+	else{
+		$query = 'UPDATE projects 
+				SET ProjectName = :projectname, 
+					Description = :description
+				WHERE projectID = :projectID';
+	}
+
+	
 
 	$statement = $db->prepare($query);
 	$statement->bindValue(':projectname', $post_projectname);
 	$statement->bindValue(':description', $post_projectdescription);
-	$statement->bindValue(':erdiagram', $ERDiagramImage);
 	$statement->bindValue(':projectID', $projectID);
+	
+	if(!is_null($ERDiagramImage) || isset($_POST['RemoveERDiagram']))
+	{
+		$statement->bindValue(':erdiagram', $ERDiagramImage);
+	}
+	
 	$result = $statement->execute();
 
 	if($result == 0){
@@ -221,7 +269,7 @@ function upload_to_server($ERDiagram){
 
         	// Using ImageResize to convert image file dimensions and save the files
         	$image = new ImageResize($temporary_image_path);
-			$image->resizeToWidth(500);
+			$image->resizeToWidth(600);
 			$image->save($file_path);
         }
     }

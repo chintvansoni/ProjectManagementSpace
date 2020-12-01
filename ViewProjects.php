@@ -24,12 +24,20 @@
 	}else{
 		header("location:ViewProjects.php");
 	}
+	
+	if(!isset($_GET['SearchProjectName']) || strlen($_GET['SearchProjectName']) == 0)
+	{
+		$projectKeyword = '%';
+	}
+	else{
+		$projectKeyword = '%'.$_GET['SearchProjectName'].'%';
+	}
 
 	$userId = $_SESSION['UserId'];
 
 	$projectQuery = 'SELECT *
 				FROM projects
-				WHERE Owner = '.$userId.'
+				WHERE Owner = '.$userId.' AND lower(ProjectName) LIKE lower(\''.$projectKeyword.'\')
 				ORDER BY '.$orderBy;
 
 	$userQuery = 'SELECT *
@@ -76,17 +84,19 @@
 	<section>
 		<div id="AllProjects">
 			<div id="SearchSortOperations">
-				<span id="SearchUtility">
-					<input type="text" name="SearchProjectName" id="SearchProjectName">
-					<input type="button" name="SearchProject" id="SearchProject" value="Search">
-				</span>
-				<span id="SortUtility">
-					Sort by: 
-					<select id="sortProjectList" name="sortProjectList">
-						<option value="createdon" selected>Created On ASC</option>
-						<option value="projectname">Project Name</option>
-					</select>
-				</span>
+				<form id="ProjectSearchForm" method="GET" action="ViewProjects.php">
+					<span id="SearchUtility">
+						<input type="text" name="SearchProjectName" id="SearchProjectName">
+						<input type="Submit" value="Search">
+					</span>
+					<span id="SortUtility">
+						Sort by: 
+						<select id="sortProjectList" name="sortProjectList">
+							<option value="createdon" selected>Created On</option>
+							<option value="projectname">Project Name</option>
+						</select>
+					</span>
+				</form>
 			</div>
 		</div>
 		<br>
@@ -111,6 +121,10 @@
 				        </p>
 					</div>
 				<?php endforeach; ?>
+			<?php else: ?>
+				<h3 id="NoProjects">
+					No Projects Listed
+				</h3>
 			<?php endif; ?>
 		</div>
 	</section>

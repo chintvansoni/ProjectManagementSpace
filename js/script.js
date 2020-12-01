@@ -22,8 +22,7 @@ function validateForm(inputList)
 	let errorFlag = false;
 
 	for(let i=0 ; i<inputList.length ; i++)
-	{		
-
+	{	
 		let requiredTextField = document.getElementById(inputList[i]);
 
 		if(!formFieldHasInput(requiredTextField))

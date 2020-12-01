@@ -50,6 +50,9 @@
 <head>
 	<title>Project Management Space</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<?php if(strlen($projectDetail[0]['ERDiagram']) != 0): ?>
+		<script src="js/modalscript.js"></script>
+	<?php endif; ?>
 </head>
 <body>
 
@@ -121,6 +124,14 @@
 					<p>
 					<?php if(strlen($projectDetail[0]['ERDiagram']) != 0): ?>
 						<img id="ProjectERDiagram" name="ProjectERDiagram" src="<?= $projectDetail[0]['ERDiagram'] ?>">
+						<div id="myModal" class="modal">
+
+						<!-- The Close Button -->
+						<span class="close">&times;</span>
+
+						<!-- Modal Content (The Image) -->
+						<img class="modal-content" id="img01">
+						</div>
 					<?php else: ?>
 						No ER Diagram Found
 					<?php endif; ?>
