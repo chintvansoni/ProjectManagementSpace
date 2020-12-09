@@ -63,7 +63,7 @@
 				<label id="loggedinuser">
 					<?= $_SESSION['UserName'] ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				</label>
-				<a href="post_process.php" name="command" value="logout">Log Out</a>
+				<a href="logout.php">Log Out</a>
 			</li>
 		</ul>
 	</nav>
@@ -77,7 +77,7 @@
 			<fieldset id="ProjectInfo">
 				<ul id="AssignEmployees">
 					<li>
-						<label for="ProjectName">Project Name: </label>
+						<label for="ProjectSelector">Project Name: </label>
 						<select id="ProjectSelector" name="ProjectSelector">
 							<?php foreach($ProjectList as $project): ?>
 								<option value="<?= $project['ProjectId'] ?>"><?= $project['ProjectName'] ?></option>
@@ -85,7 +85,7 @@
 						</select>
 					</li>
 					<li>
-						<label for="EmployeeName">Employee: </label>
+						<label for="EmployeeSelector">Employee: </label>
 						<select id="EmployeeSelector" name="EmployeeSelector">
 							<?php foreach($EmployeeList as $employee): ?>
 								<option value="<?= $employee['UserId'] ?>"><?= $employee['FirstName']." ".$employee['LastName'] ?></option>

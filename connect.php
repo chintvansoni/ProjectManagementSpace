@@ -12,6 +12,8 @@
 const DB_PASS = "Password01";
 const DB_DSN = "mysql:host=localhost;dbname=serverside;charset=utf8";*/
 
+//id13442814_projectspace	id13442814_chintz	localhost
+
 define('DB_DSN','mysql:host=localhost;dbname=projectspace;charset=utf8');
 define('DB_USER','chintz');
 define('DB_PASS','Password01');

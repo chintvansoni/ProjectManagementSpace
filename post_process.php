@@ -1,8 +1,8 @@
 <?php 
 
 require 'connect.php';
-include 'C:\xampp\htdocs\php-image-resize-master\lib\ImageResize.php';
-include 'C:\xampp\htdocs\php-image-resize-master\lib\ImageResizeException.php';
+include 'utility\ImageResize.php';
+include 'utility\ImageResizeException.php';
 use \Gumlet\ImageResize;
 
 session_start();

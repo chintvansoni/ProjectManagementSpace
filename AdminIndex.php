@@ -37,7 +37,7 @@
 				<label id="loggedinuser">
 					<?= $_SESSION['UserName'] ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				</label>
-				<a href="logout.php" name="command" value="logout">Log Out</a>
+				<a href="logout.php">Log Out</a>
 			</li>
 		</ul>
 	</nav>

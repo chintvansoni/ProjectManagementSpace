@@ -33,6 +33,7 @@ footer {
 	}
 
 section {
+	font-family: "Times New Roman", Times, serif;
 	position: relative;
 	width: 800px;
 	margin: 10px auto;
@@ -84,10 +85,14 @@ nav {
 }
 
 	nav ul{
+		font-family: "Times New Roman", Times, serif;
+		font-size: 15px;
 		display: flex;
 		flex-wrap: wrap;
 		list-style: none;
 		justify-content: space-around;
+
+		margin-top: 10px;
 	}
 
 		nav ul li{
@@ -161,7 +166,7 @@ form#newProjectForm, form#updateProjectForm, form#employeeAssignForm, form#Creat
 	width: 200px;
 }
 
-section div#AllProjects, div#ProjectView{
+section div.AllProjects, div#ProjectView{
     border: 2px solid grey;
     padding: 0 10px 10px 10px;
 }
@@ -183,7 +188,7 @@ section div#AllProjects, div#ProjectView{
 			border: 1px solid black;
 		}
 
-	div#AllProjects div#SearchSortOperations{
+	div.AllProjects div#SearchSortOperations{
 		margin-top: 10px;
 	}
 
@@ -195,9 +200,13 @@ section div#AllProjects, div#ProjectView{
 			float: right;
 		}
 
-	div#AllProjects h3#NoProjects{
+	div.AllProjects h3#NoProjects{
 		text-align: center;
 	}
+
+.pagination {
+	margin-left: 275px;
+}
 
 .center{
 	text-align: center;
@@ -208,6 +217,7 @@ div.ProjectItem{
 }
 
 	div.ProjectItem h3 a{
+		font-weight: bold;
 	    text-decoration: none;
 	    color: black;
 	}
@@ -221,7 +231,8 @@ div.ProjectItem{
     	margin-top: 0;
 	}
 
-	div.ProjectItem p small#ProjectDetailLink{
+	div.ProjectItem p small.ProjectDetailLink{
+		font-size: 14px;
 		float: right;
 		margin-right: 50px;
 	}

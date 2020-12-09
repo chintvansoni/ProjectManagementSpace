@@ -14,7 +14,7 @@ function load()
 		const selectedIndex = selectedSortOrder.selectedIndex;
 		const selectedSortValue = selectedSortOrder.options[selectedIndex].value;
 
-		window.location.replace("ViewProjects.php?sort=".concat(selectedSortValue));
+		window.location.replace("ViewProjects.php?sortProjectList=".concat(selectedSortValue));
 	});
 }
 
